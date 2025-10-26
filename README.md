@@ -1,73 +1,86 @@
-# Welcome to your Lovable project
+# Jovem Link
 
-## Project info
+## Project Description
 
-**URL**: https://lovable.dev/projects/1183c49e-e8a4-4436-9149-59702cb573cb
+Jovem link is a web application designed to help users discover social benefits tailored to their profile. The application guides users through an interactive questionnaire to gather relevant information, such as whether they are a student or responsible for one. Based on the provided answers, it presents personalized recommendations for available benefits.
 
-## How can I edit this code?
+Key features include:
 
-There are several ways of editing your application.
+*   **Personalized Benefit Recommendations:** Users receive a curated list of social benefits based on their questionnaire responses.
+*   **Interactive Questionnaire:** A multi-step questionnaire helps to build a user profile.
+*   **CRAS Map Integration:** Users can locate nearby CRAS (Centro de Referência de Assistência Social) units, especially useful for validating social registries like CadÚnico.
+*   **Document Management:** A dedicated section for managing and accessing relevant documents.
+*   **Alerts and Deadlines:** Notifies users about important deadlines and alerts related to their benefits.
+*   **Quick FAQ:** Provides quick answers to frequently asked questions.
+*   **Tag-based Filtering:** Users can filter benefit recommendations using relevant tags.
 
-**Use Lovable**
+This application aims to simplify the process of finding and accessing social assistance programs, making it more accessible and user-friendly.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/1183c49e-e8a4-4436-9149-59702cb573cb) and start prompting.
+## Members
 
-Changes made via Lovable will be committed automatically to this repo.
+*   lucas Pisaneschi Speranzini/lucaspisaneschi4@gmail.com
+*   Lorenzo Matho/lorenzo.matheo@hotmail.com
+*   Rafael Fassini Menoce/fassinimenocerafael@gmail.com
+ 
 
-**Use your preferred IDE**
+## Setup and Usage Instructions
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+To get this project up and running on your local machine, follow these steps:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+*   Node.js (LTS version recommended)
+*   Bun (package manager)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/lorenzomatheo/beneficios-baixa-renda.git
+    cd build-a-screen-biz
+    ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2.  **Install dependencies:**
+    ```bash
+    bun install
+    ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### Running the Development Server
+
+To start the development server:
+
+```bash
+bun run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be accessible at `http://localhost:5173` (or another port if 5173 is in use).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Building for Production
 
-**Use GitHub Codespaces**
+To create a production-ready build:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+bun run build
+```
 
-## What technologies are used for this project?
+The build artifacts will be located in the `dist/` directory.
 
-This project is built with:
+### Linting
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+To run the linter:
 
-## How can I deploy this project?
+```bash
+bun run lint
+```
 
-Simply open [Lovable](https://lovable.dev/projects/1183c49e-e8a4-4436-9149-59702cb573cb) and click on Share -> Publish.
+### Previewing the Production Build
 
-## Can I connect a custom domain to my Lovable project?
+To preview the production build locally:
 
-Yes, you can!
+```bash
+bun run preview
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
