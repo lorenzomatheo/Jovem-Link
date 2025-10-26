@@ -4,12 +4,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface BenefitCardProps {
   icon: React.ReactNode;
-  iconColor: "primary" | "secondary" | "warning";
+  iconColor: "primary" | "secondary" | "warning" | "success" | "info" | "danger";
   title: string;
   description: string;
   badges: {
     label: string;
-    variant: "primary" | "secondary" | "success" | "info" | "warning";
+    variant: "primary" | "secondary" | "success" | "info" | "warning" | "danger";
   }[];
   onClick: () => void;
 }
@@ -19,6 +19,9 @@ const BenefitCard = ({ icon, iconColor, title, description, badges, onClick }: B
     primary: "bg-primary/10 text-primary",
     secondary: "bg-secondary/10 text-secondary",
     warning: "bg-warning/10 text-warning",
+    success: "bg-success/10 text-success",
+    info: "bg-info/10 text-info",
+    danger: "bg-danger/10 text-danger",
   };
 
   return (

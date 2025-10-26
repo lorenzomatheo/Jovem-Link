@@ -1,7 +1,7 @@
 import Groq from "groq-sdk";
 
-// IMPORTANT: Replace with your actual Groq API key
-const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY || "";
+// IMPORTANT: Create a .env file in the root of the project and add your Groq API key as VITE_GROQ_API_KEY="your_key"
+const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || "your_groq_api_key";
 
 const groq = new Groq({ apiKey: GROQ_API_KEY, dangerouslyAllowBrowser: true });
 

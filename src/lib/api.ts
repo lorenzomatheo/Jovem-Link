@@ -1,5 +1,5 @@
-
 import { QuestionnaireAnswers } from "@/types/questionnaire";
+import { getGroqCompletion } from "./groq";
 
 export interface Benefit {
   id: string;
@@ -81,6 +81,175 @@ export const allBenefits: Benefit[] = [
       "Retirar o cartão de passe livre.",
     ],
     requiredDocuments: ["RG", "CPF", "Comprovante de matrícula", "Comprovante de residência"],
+  },
+  // New benefits for "Jovens Pré-Universitários de Baixa Renda"
+  {
+    id: "programa-pe-de-meia",
+    title: "Programa Pé-de-Meia",
+    description: "Voltado a alunos do ensino médio público cadastrados no CadÚnico. Paga até R$ 9.200,00 ao longo dos estudos em parcelas por matrícula, frequência e conclusão de etapas escolares.",
+    icon: "GraduationCap",
+    iconColor: "success",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Jovens", variant: "info" },
+    ],
+    requirements: [
+      "Ser aluno do ensino médio público.",
+      "Estar cadastrado no CadÚnico.",
+    ],
+    applicationProcess: [
+      "Matrícula em escola pública de ensino médio.",
+      "Acompanhamento da frequência escolar.",
+      "Conclusão das etapas escolares.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Comprovante de matrícula", "Comprovante de CadÚnico"],
+  },
+  {
+    id: "bolsa-cursinhos-populares",
+    title: "Bolsa para Cursinhos Populares",
+    description: "Desde junho de 2025, estudantes de cursinhos sociais recebem R$ 200 por mês como incentivo financeiro para custear transporte, alimentação e internet, ajudando na preparação para o vestibular e o ENEM.",
+    icon: "GraduationCap",
+    iconColor: "info",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Jovens", variant: "info" },
+    ],
+    requirements: [
+      "Ser estudante de cursinhos sociais.",
+      "Comprovar baixa renda.",
+    ],
+    applicationProcess: [
+      "Inscrição no programa de bolsas do cursinho.",
+      "Apresentação de documentos comprobatórios de renda e matrícula.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Comprovante de matrícula no cursinho", "Comprovante de renda"],
+  },
+  {
+    id: "isencao-enem-vestibulares",
+    title: "Isenção de Taxas no ENEM e Vestibulares Públicos",
+    description: "Para todos os inscritos no CadÚnico e para egressos de escolas públicas.",
+    icon: "GraduationCap",
+    iconColor: "warning",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Jovens", variant: "info" },
+    ],
+    requirements: [
+      "Estar inscrito no CadÚnico.",
+      "Ou ser egresso de escola pública.",
+    ],
+    applicationProcess: [
+      "Solicitação de isenção no período de inscrição do ENEM/vestibular.",
+      "Apresentação do número do NIS (CadÚnico) ou histórico escolar.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Número do NIS", "Histórico escolar"],
+  },
+  {
+    id: "integracao-bolsa-familia-cras",
+    title: "Integração com Bolsa Família e CRAS",
+    description: "Garantindo acompanhamento social e prioridade na inclusão digital.",
+    icon: "Home",
+    iconColor: "primary",
+    badges: [
+      { label: "Social", variant: "success" },
+      { label: "Jovens", variant: "info" },
+    ],
+    requirements: [
+      "Ser participante do Bolsa Família.",
+      "Estar em acompanhamento pelo CRAS.",
+    ],
+    applicationProcess: [
+      "Acompanhamento regular no CRAS.",
+      "Participação em programas de inclusão digital oferecidos.",
+    ],
+    requiredDocuments: ["Cartão do Bolsa Família", "Comprovante de acompanhamento CRAS"],
+  },
+  // New benefits for "Universitários de Baixa Renda"
+  {
+    id: "pe-de-meia-universitario",
+    title: "Pé-de-Meia Universitário",
+    description: "Auxílio financeiro voltado a alunos de universidades federais, especialmente cotistas e participantes do CadÚnico, para evitar abandono dos estudos por falta de recursos.",
+    icon: "GraduationCap",
+    iconColor: "success",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Universitários", variant: "info" },
+    ],
+    requirements: [
+      "Ser aluno de universidade federal.",
+      "Ser cotista ou participante do CadÚnico.",
+      "Comprovar baixa renda.",
+    ],
+    applicationProcess: [
+      "Inscrição no programa da universidade.",
+      "Apresentação de documentos comprobatórios.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Comprovante de matrícula", "Comprovante de CadÚnico/Cotas"],
+  },
+  {
+    id: "pnaes",
+    title: "Política Nacional de Assistência Estudantil (PNAES)",
+    description: "Agora financiada também com recursos do Fundo Social do Petróleo, cobre despesas com moradia, alimentação, transporte, saúde e cultura para universitários das redes públicas.",
+    icon: "Home",
+    iconColor: "secondary",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Universitários", variant: "info" },
+      { label: "Assistência", variant: "warning" },
+    ],
+    requirements: [
+      "Ser universitário de rede pública.",
+      "Comprovar situação de vulnerabilidade socioeconômica.",
+    ],
+    applicationProcess: [
+      "Solicitação junto à assistência estudantil da universidade.",
+      "Apresentação de documentos comprobatórios de renda e despesas.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Comprovante de matrícula", "Comprovante de renda"],
+  },
+  {
+    id: "prouni",
+    title: "ProUni",
+    description: "Concede bolsas de estudo integrais e parciais.",
+    icon: "GraduationCap",
+    iconColor: "primary",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Universitários", variant: "info" },
+      { label: "Bolsa", variant: "success" },
+    ],
+    requirements: [
+      "Ter participado do ENEM e obtido nota mínima.",
+      "Não possuir diploma de curso superior.",
+      "Comprovar renda familiar bruta mensal per capita de até 1,5 salário mínimo (integral) ou 3 salários mínimos (parcial).",
+    ],
+    applicationProcess: [
+      "Inscrição no site do ProUni no período indicado.",
+      "Seleção baseada na nota do ENEM e critérios socioeconômicos.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Comprovante de ENEM", "Comprovante de renda"],
+  },
+  {
+    id: "fies-social",
+    title: "FIES Social",
+    description: "Oferece financiamento 100% gratuito das mensalidades para estudantes do CadÚnico com renda familiar per capita de até meio salário mínimo.",
+    icon: "GraduationCap",
+    iconColor: "warning",
+    badges: [
+      { label: "Educação", variant: "primary" },
+      { label: "Universitários", variant: "info" },
+      { label: "Financiamento", variant: "danger" },
+    ],
+    requirements: [
+      "Estar inscrito no CadÚnico.",
+      "Comprovar renda familiar per capita de até meio salário mínimo.",
+      "Ter participado do ENEM a partir de 2010 e obtido nota mínima.",
+    ],
+    applicationProcess: [
+      "Inscrição no site do FIES no período indicado.",
+      "Validação das informações na CPSA da instituição de ensino.",
+    ],
+    requiredDocuments: ["RG", "CPF", "Comprovante de CadÚnico", "Comprovante de renda", "Comprovante de ENEM"],
   },
 ];
 
