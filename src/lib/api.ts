@@ -95,30 +95,49 @@ export const getAllUniqueTags = (): string[] => {
 export const getRecommendedBenefits = async (
   answers: QuestionnaireAnswers
 ): Promise<Benefit[]> => {
-  console.log("Recommending benefits for answers:", answers);
+  console.log("Recommending benefits for answers with AI:", answers);
+
+  // IMPORTANT: Make sure you have set your Groq API key in src/lib/groq.ts
+  // Without it, this will not work.
 
   // Simulate API call delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const recommended: Benefit[] = [];
-
-  if (answers.userType === "student") {
-    const bolsaPermanencia = allBenefits.find(b => b.id === 'bolsa-permanencia');
-    if (bolsaPermanencia) recommended.push(bolsaPermanencia);
-  }
-
-  if (answers.income === "low") {
-    const habitacaoPopular = allBenefits.find(b => b.id === 'habitacao-popular');
-    if (habitacaoPopular) recommended.push(habitacaoPopular);
-
-    const passeLivre = allBenefits.find(b => b.id === 'passe-livre');
-    if (passeLivre) recommended.push(passeLivre);
-  }
-
-  // Fallback to all benefits if no specific recommendations are found
-  if (recommended.length === 0) {
+  if (Object.keys(answers).length === 0) {
     return allBenefits;
   }
 
-  return recommended;
+  return getRecommendedBenefitsFromAI(answers);
+};
+
+const getRecommendedBenefitsFromAI = async (
+  answers: QuestionnaireAnswers
+): Promise<Benefit[]> => {
+  const prompt = `
+    Você é um especialista em programas sociais e benefícios do governo brasileiro.
+    Analise o perfil de usuário a seguir e a lista de benefícios disponíveis.
+    Retorne um array JSON com os IDs dos benefícios mais recomendados para este usuário.
+
+    Perfil do Usuário:
+    ${JSON.stringify(answers, null, 2)}
+
+    Benefícios Disponíveis:
+    ${JSON.stringify(allBenefits.map(b => ({ id: b.id, title: b.title, description: b.description, requirements: b.requirements })), null, 2)}
+
+    Retorne SOMENTE o array JSON de IDs. Por exemplo: ["bolsa-permanencia", "passe-livre"]
+  `;
+
+  try {
+    const response = await getGroqCompletion(prompt);
+    const recommendedIds = JSON.parse(response);
+
+    if (Array.isArray(recommendedIds)) {
+      const recommended = allBenefits.filter(b => recommendedIds.includes(b.id));
+      return recommended.length > 0 ? recommended : allBenefits; // Fallback
+    }
+    return allBenefits; // Fallback
+  } catch (error) {
+    console.error("Error parsing AI response:", error);
+    return allBenefits; // Fallback to all benefits in case of error
+  }
 };
