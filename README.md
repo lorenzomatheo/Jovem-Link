@@ -36,7 +36,7 @@ To get this project up and running on your local machine, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/lorenzomatheo/beneficios-baixa-renda.git
+    git clone https://github.com/lorenzomatheo/Jovem-Link.git
     cd build-a-screen-biz
     ```
 
